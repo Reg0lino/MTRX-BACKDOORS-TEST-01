@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Maze</title>
+    <link rel="stylesheet" href="maze.css">
+</head>
+<body>
+    <div id="blocker">
+        <div id="instructions">
+            <span style="font-size:36px">Click to Play</span>
+            <br /><br />
+            (W, A, S, D = Move, MOUSE = Look, SHIFT = Run, CLICK = Fire, R = Reload)
+            <br/>(P = Collision Debug, M = Map Debug) <br/> <!-- Updated keys -->
+             Eliminate all agents to reveal the exit.
+        </div>
+    </div>
+    <canvas id="mazeCanvas"></canvas> <!-- Main 3D Canvas -->
+    <canvas id="debugMapCanvas"></canvas> <!-- ** NEW: Debug Map Canvas ** -->
+
+    <!-- Reticle -->
+    <div id="reticle">+</div>
+
+    <!-- HUD Elements -->
+    <div id="hudContainer">
+        <!-- ... HUD items ... -->
+         <div class="hud-item">
+            <span class="hud-label">HP</span>
+            <div id="hpBarOuter"><div id="hpBarFill"></div></div>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <div class="hud-item" style="margin-right: 15px;">
+                 <span class="hud-label">Agents</span>
+                 <span class="hud-value" id="agentCount">--</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label" id="weaponName">9mm</span>
+                <span class="hud-value" id="ammoCount">-- / --</span>
+                <div id="reloadIndicator">
+                     <svg viewBox="0 0 36 36" class="reload-svg"><path class="reload-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /><path id="reloadProgress" class="reload-progress" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" /></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/PointerLockControls.js"></script>
+    <script src="maze.js" defer></script>
+</body>
+</html>

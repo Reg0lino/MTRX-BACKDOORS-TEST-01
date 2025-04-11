@@ -1,0 +1,332 @@
+/* index.css - Matrix Theme for Landing Page */
+:root {
+    --matrix-green: #0f0;
+    --matrix-green-dark: #0a0;
+    --matrix-green-darker: #050;
+    --matrix-black: #000;
+    --scanline-intensity: 0.2; /* 0 = off, 1 = max */
+    --glitch-speed: 0.1s; /* Controls base speed of glitch effect */
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-y: auto; /* Allow vertical scroll if needed */
+    background-color: var(--matrix-black);
+    color: var(--matrix-green);
+    font-family: 'Share Tech Mono', monospace; /* Monospaced font */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+body::before { /* Scanline Effect */
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind content */
+    pointer-events: none;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, calc(0.25 * var(--scanline-intensity))) 50%
+    ), linear-gradient(
+        90deg, rgba(255, 0, 0, calc(0.06 * var(--scanline-intensity))),
+        rgba(0, 255, 0, calc(0.02 * var(--scanline-intensity))),
+        rgba(0, 0, 255, calc(0.06 * var(--scanline-intensity)))
+    );
+    background-size: 100% 3px, 5px 100%;
+    animation: scanlineAnim 0.1s linear infinite;
+}
+
+@keyframes scanlineAnim {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 3px; }
+}
+
+.matrix-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid var(--matrix-green-dark);
+    background-color: rgba(0, 5, 0, 0.6); /* Dark semi-transparent background */
+    text-shadow: 0 0 3px var(--matrix-green-darker);
+    box-shadow: 0 0 15px var(--matrix-green-darker);
+    overflow: hidden; /* Contain glitch effects */
+}
+
+/* --- NEW: Glitchy Header Divider Styles --- */
+.glitch-divider-container {
+    text-align: center;
+    margin-bottom: 2em;
+    padding: 10px 0;
+    border-top: 1px dashed var(--matrix-green-darker);
+    border-bottom: 1px dashed var(--matrix-green-darker);
+    background: linear-gradient(90deg, rgba(0,10,0,0.1) 0%, rgba(0,30,0,0.3) 50%, rgba(0,10,0,0.1) 100%);
+}
+
+.glitch-line {
+    font-size: 1.2em;
+    color: var(--matrix-green);
+    text-shadow: 0 0 5px var(--matrix-green);
+    position: relative;
+    animation: glitch-base 1.5s infinite linear alternate-reverse;
+}
+.glitch-line.sub-line {
+    font-size: 0.9em;
+    color: var(--matrix-green-dark);
+    text-shadow: 0 0 3px var(--matrix-green-darker);
+    animation-delay: -0.5s; /* Offset animation */
+}
+
+.glitch-line::before, .glitch-line::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: inherit;
+    /* Glitch colors slightly different for divider */
+    text-shadow: -1px 0 #00ff00, 1px 0 #ff00ff;
+    animation: glitch-anim-divider calc(var(--glitch-speed) * 3) infinite linear alternate-reverse;
+}
+
+.glitch-line::after {
+     text-shadow: 1px 0 #00ffff, -1px 0 #ffff00;
+     animation: glitch-anim-divider-alt calc(var(--glitch-speed) * 2) infinite linear alternate-reverse;
+     animation-delay: calc(var(--glitch-speed) * -0.8);
+}
+
+@keyframes glitch-anim-divider { /* Slightly different clip path for divider */
+    0% { clip-path: polygon(0 0, 100% 0, 100% 5%, 0 5%); transform: translate(-1px, 0); }
+    10% { clip-path: polygon(0 95%, 100% 95%, 100% 100%, 0 100%); transform: translate(1px, 0); }
+    20% { clip-path: polygon(0 40%, 100% 40%, 100% 45%, 0 45%); transform: translate(-1px, 1px); }
+    /* ... add more steps if desired ... */
+    100% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); transform: translate(1px, -1px); }
+}
+@keyframes glitch-anim-divider-alt {
+    0% { clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%); transform: translate(1px, 1px); }
+    10% { clip-path: polygon(0 80%, 100% 80%, 100% 85%, 0 85%); transform: translate(-1px, -1px); }
+    /* ... add more steps if desired ... */
+    100% { clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%); transform: translate(0, 1px); }
+}
+/* --- END: Glitchy Header Divider Styles --- */
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 1em; /* Reduced margin slightly */
+    color: var(--matrix-green);
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: var(--matrix-green);
+    border-bottom: 1px solid var(--matrix-green-dark);
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+p, .objective-list p {
+    margin-bottom: 1em;
+    color: #cfc; /* Slightly dimmer green for text */
+}
+
+.objective-list .bullet {
+    color: var(--matrix-green);
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #ff0; /* Yellow highlight for key info */
+    font-weight: bold;
+}
+
+.warning {
+    color: #f55; /* Red for warning */
+    font-weight: bold;
+}
+
+pre {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px dashed var(--matrix-green-darker);
+    padding: 15px;
+    margin: 1em 0;
+    white-space: pre-wrap; /* Wrap long lines in pre */
+    word-wrap: break-word;
+    color: var(--matrix-green);
+    font-size: 0.95em; /* Slightly smaller for pre blocks */
+    overflow-x: auto; /* Allow scroll if needed for ASCII */
+}
+
+.ascii-art {
+    text-align: center;
+    font-size: 0.8em;
+    line-height: 1.2;
+    color: var(--matrix-green-dark);
+    margin-bottom: 2em;
+    white-space: pre; /* Keep ASCII formatting strict */
+}
+
+/* Removed .header-art styles as the element is gone */
+
+.footer-art {
+    margin-top: 3em;
+    margin-bottom: 1em;
+    font-size: 0.7em;
+}
+
+.footer-text {
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 0;
+    color: var(--matrix-green-dark);
+}
+
+.main-link {
+    display: block;
+    width: fit-content;
+    margin: 1em auto 2em auto; /* Adjusted margin */
+    padding: 15px 30px;
+    font-size: 2em; /* Larger font size */
+    font-weight: bold;
+    color: var(--matrix-green);
+    background-color: var(--matrix-green-darker);
+    border: 2px solid var(--matrix-green);
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+    box-shadow: 0 0 10px var(--matrix-green-dark);
+    position: relative; /* Needed for glitch pseudo-elements */
+}
+
+.main-link:hover,
+.main-link:focus {
+    background-color: var(--matrix-green-dark);
+    color: var(--matrix-black);
+    text-shadow: 0 0 8px var(--matrix-green);
+    cursor: pointer;
+}
+
+/* Basic Glitch Effect */
+.glitch, .glitch-sub, .glitch-heavy {
+    position: relative;
+    animation: glitch-base 1s infinite linear alternate-reverse;
+}
+
+.glitch::before, .glitch::after,
+.glitch-sub::before, .glitch-sub::after,
+.glitch-heavy::before, .glitch-heavy::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: inherit; /* Match background for clipping */
+}
+
+.glitch::before, .glitch-sub::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    animation: glitch-anim1 calc(var(--glitch-speed) * 2.5) infinite linear alternate-reverse;
+}
+
+.glitch::after, .glitch-sub::after {
+    left: -2px;
+    text-shadow: -1px 0 blue; /* Matrix often had blue/red glitches */
+    animation: glitch-anim2 calc(var(--glitch-speed) * 1.5) infinite linear alternate-reverse;
+}
+
+/* Heavier Glitch for the Main Link */
+.glitch-heavy::before {
+    left: 3px;
+    text-shadow: -2px 0 #ff00ff; /* Magenta */
+    animation: glitch-anim1 calc(var(--glitch-speed) * 1.8) infinite linear alternate-reverse;
+}
+
+.glitch-heavy::after {
+    left: -3px;
+    text-shadow: 2px 0 #00ffff; /* Cyan */
+    animation: glitch-anim2 calc(var(--glitch-speed) * 1.2) infinite linear alternate-reverse;
+    animation-delay: calc(var(--glitch-speed) * -0.5); /* Offset timing */
+}
+
+
+@keyframes glitch-base {
+    0% { opacity: 1; }
+    2% { opacity: 0.8; }
+    4% { opacity: 1; }
+    80% { opacity: 1; }
+    82% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+@keyframes glitch-anim1 {
+    0% { clip-path: inset(5% 0 90% 0); transform: translate(-0.05em, -0.025em); }
+    10% { clip-path: inset(80% 0 5% 0); transform: translate(0.025em, 0.05em); }
+    20% { clip-path: inset(25% 0 60% 0); transform: translate(-0.05em, 0.01em); }
+    30% { clip-path: inset(95% 0 1% 0); transform: translate(0.01em, -0.025em); }
+    40% { clip-path: inset(40% 0 45% 0); transform: translate(0.05em, 0); }
+    50% { clip-path: inset(50% 0 30% 0); transform: translate(-0.01em, 0.025em); }
+    60% { clip-path: inset(70% 0 15% 0); transform: translate(0.025em, 0.05em); }
+    70% { clip-path: inset(10% 0 85% 0); transform: translate(-0.05em, 0); }
+    80% { clip-path: inset(60% 0 20% 0); transform: translate(0.01em, -0.01em); }
+    90% { clip-path: inset(88% 0 8% 0); transform: translate(-0.025em, 0.05em); }
+    100% { clip-path: inset(33% 0 53% 0); transform: translate(0.05em, -0.025em); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip-path: inset(85% 0 5% 0); transform: translate(0.025em, 0.01em); }
+    10% { clip-path: inset(10% 0 70% 0); transform: translate(-0.05em, -0.05em); }
+    20% { clip-path: inset(75% 0 18% 0); transform: translate(0.01em, 0.025em); }
+    30% { clip-path: inset(3% 0 92% 0); transform: translate(-0.025em, 0.05em); }
+    40% { clip-path: inset(55% 0 30% 0); transform: translate(0.05em, -0.01em); }
+    50% { clip-path: inset(20% 0 65% 0); transform: translate(-0.01em, -0.025em); }
+    60% { clip-path: inset(80% 0 10% 0); transform: translate(0.025em, 0); }
+    70% { clip-path: inset(5% 0 88% 0); transform: translate(-0.05em, 0.05em); }
+    80% { clip-path: inset(40% 0 42% 0); transform: translate(0.01em, -0.01em); }
+    90% { clip-path: inset(68% 0 22% 0); transform: translate(-0.025em, 0); }
+    100% { clip-path: inset(15% 0 75% 0); transform: translate(0.05em, 0.025em); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    .main-link {
+        font-size: 1.5em;
+        padding: 10px 20px;
+    }
+    .matrix-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    .ascii-art {
+        font-size: 0.6em; /* Shrink ASCII art further */
+    }
+    /* Adjust glitch divider text size on small screens */
+    .glitch-line { font-size: 1em; }
+    .glitch-line.sub-line { font-size: 0.8em; }
+
+}

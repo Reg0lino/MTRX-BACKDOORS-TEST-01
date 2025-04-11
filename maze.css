@@ -1,0 +1,48 @@
+--- START OF FILE maze.css ---
+/* maze.css */
+html, body{margin:0;padding:0;height:100%;overflow:hidden;background-color:#000;font-family:'Consolas','Lucida Console','Courier New',monospace;color:#0f0;}
+#mazeCanvas{display:block;width:100%;height:100%;}
+#blocker{position:absolute;width:100%;height:100%;background-color:rgba(0,0,0,.7);display:flex;justify-content:center;align-items:center;z-index:10;transition:background-color .3s,opacity .3s;}
+#instructions{width:80%;max-width:500px;padding:20px;text-align:center;font-size:14px;cursor:pointer;background-color:rgba(0,15,0,.85);border:2px solid hsl(120, 65%, 20%);color:hsl(120, 90%, 75%);transition:color .1s,text-shadow .1s;}
+body.locked{cursor:none;}
+#reticle{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#0f0;font-size:20px;font-weight:700;text-shadow:0 0 5px #0f0;pointer-events:none;z-index:9;display:none;}
+body.locked #reticle{display:block;}
+#hudContainer{position:fixed;bottom:15px;left:15px;right:15px;display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;color:#0f0;font-size:calc(16px * 1.5);text-shadow:0 0 4px #0f0;z-index:5;background:linear-gradient(to top,rgba(0,10,0,.6),rgba(0,10,0,0));padding:8px 15px;}
+.hud-item{display:flex;align-items:center;background-color:rgba(0,5,0,.7);padding:8px 15px;border:1px solid rgba(0,255,0,.4);border-radius:4px;}
+.hud-label{margin-right:12px;font-weight:700;color:#5f5;}
+.hud-value{font-weight:700;}
+#hpBarOuter{width:150px;height:18px;border:1px solid #0a0;background-color:rgba(255,0,0,.4);margin-left:8px;overflow:hidden;}
+#hpBarFill{width:100%;height:100%;background-color:#0f0;transition:width .3s ease-out;}
+#ammoCount{margin-left:12px;min-width:75px;text-align:right;}
+#reloadIndicator{width:36px;height:36px;margin-left:15px;display:none;}
+.reload-svg{transform:rotate(-90deg);}
+.reload-bg{fill:none;stroke:rgba(0,255,0,.2);stroke-width:4.2;}
+.reload-progress{fill:none;stroke:#0f0;stroke-linecap:round;stroke-width:3.5;transition:stroke-dasharray .1s linear;}
+
+/* --- Debug Map Styles --- */
+#debugMapCanvas {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 200px; /* Adjust size as needed */
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    border: 1px solid #0f0; /* Green border */
+    z-index: 8; /* Below reticle, above main canvas */
+    display: none; /* Hidden by default */
+    image-rendering: pixelated; /* Keep lines sharp */
+    opacity: 0; /* ** Start hidden for fade effect ** */
+    transition: opacity 0.3s ease-in-out; /* ** Add transition for fade ** */
+    pointer-events: none; /* ** Prevent interaction with map overlay ** */
+}
+/* Style for version info */
+#versionInfo {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #5f5;
+    font-size: 12px;
+    z-index: 11; /* Above blocker */
+    pointer-events: none; /* Allow clicks through */
+}
+--- END OF FILE maze.css ---
